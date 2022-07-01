@@ -13,12 +13,19 @@ export class NoteService {
   private newNoteSource = new Subject<Note>();
   newNoteProvider = this.newNoteSource.asObservable();
 
+  private editNoteSource = new Subject<Note>();
+  editNoteProvider = this.editNoteSource.asObservable();
+
   constructor(private http: HttpClient) {
     this.apiUrl = "https://fiap-notes-api.herokuapp.com";
   }
 
   notifyNewNoteAdded(note: Note){
     this.newNoteSource.next(note);
+  }
+
+  notifyEditNoteClicked(note: Note) {
+    this.editNoteSource.next(note);
   }
 
   getNotes(){
@@ -33,8 +40,8 @@ export class NoteService {
     return this.http.post<Note>(`${this.apiUrl}/notes`, {text: textNote});
   }
 
-  editNote(textNote: string, noteId: number) {
-    return this.http.put<Note>(`${this.apiUrl}/notes/${noteId}`, {text: textNote});
+  editNote(note: Note) {
+    return this.http.put<Note>(`${this.apiUrl}/notes/${note.id}`, {text: note.text});
   }
   
 }
