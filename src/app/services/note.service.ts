@@ -17,35 +17,8 @@ export class NoteService {
     this.apiUrl = "https://fiap-notes-api.herokuapp.com";
   }
 
-  private notes = [
-    {
-      id: 1,
-      date: new Date(),
-      text: 'Um texto qualquer',
-      urgent: false,
-    },
-    {
-      id: 2,
-      date: new Date(),
-      text: 'Um texto qualquer 2',
-      urgent: true,
-    },
-    {
-      id: 3,
-      date: new Date(),
-      text: 'Um texto qualquer 3',
-    },
-    {
-      id: 4,
-      date: new Date(),
-      text: 'Um texto qualquer 4',
-      urgent: true,
-    },
-  ];
-
   notifyNewNoteAdded(note: Note){
     this.newNoteSource.next(note);
-    // this.newNoteSource.error("algum exception");
   }
 
   getNotes(){
@@ -58,6 +31,10 @@ export class NoteService {
 
   postNotes(textNote: string){
     return this.http.post<Note>(`${this.apiUrl}/notes`, {text: textNote});
+  }
+
+  editNote(textNote: string, noteId: number) {
+    return this.http.put<Note>(`${this.apiUrl}/notes/${noteId}`, {text: textNote});
   }
   
 }
