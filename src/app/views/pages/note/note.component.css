@@ -36,3 +36,8 @@ article .material-icons:hover {
   left: 5px;
   width: fit-content;
 }
+
+#edit-icon {
+  position: absolute;
+  right: 35px;
+}

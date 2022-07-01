@@ -61,7 +61,7 @@ export class FormNoteComponent implements OnInit {
     });
   }
 
-  editNote() {
+  editNote() { 
     this.noteToEdit.text = this.checkoutForm.value.textNote;    
     this.noteService.editNote(this.noteToEdit).subscribe({
       next: () => {
@@ -69,7 +69,9 @@ export class FormNoteComponent implements OnInit {
         this.noteToEdit = {} as Note;
       },
       //error é chamado no caso de excessões
-      error: (error) => alert("Algo errado na EDIÇÃO! " + error)
+      error: (error) => alert("Algo errado na EDIÇÃO! " + error),
+      // usando complete para aplicar conceitos aprendidos
+      complete: () => alert("Nota alterada com sucesso!")
     });
   }
 
